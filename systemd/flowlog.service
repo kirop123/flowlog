@@ -1,0 +1,16 @@
+[Unit]
+Description=flowlog: store ntopng flows in SQLite
+After=ntopng.service
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/flowlog/flowlog.py
+Restart=always
+RestartSec=10
+ProtectSystem=strict
+ReadWritePaths=/var/lib/flowlog
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

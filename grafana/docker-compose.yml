@@ -1,0 +1,17 @@
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: flowlog-grafana
+    restart: unless-stopped
+    user: "0"   # needs to read the SQLite WAL files in /var/lib/flowlog
+    ports:
+      - "3030:3000"
+    environment:
+      - GF_PLUGINS_PREINSTALL=frser-sqlite-datasource
+    volumes:
+      - flowlog-grafana:/var/lib/grafana
+      - /opt/flowlog/grafana/provisioning:/etc/grafana/provisioning
+      - /var/lib/flowlog:/var/lib/flowlog
+volumes:
+  flowlog-grafana:
+    name: flowlog-grafana

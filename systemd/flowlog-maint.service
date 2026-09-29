@@ -1,0 +1,13 @@
+[Unit]
+Description=flowlog housekeeping: refresh device names, prune old flows
+After=flowlog.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /opt/flowlog/devices.py
+ExecStart=/usr/bin/python3 /opt/flowlog/prune.py 90
+ProtectSystem=strict
+ReadWritePaths=/var/lib/flowlog
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
